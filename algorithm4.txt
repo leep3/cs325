@@ -1,0 +1,58 @@
+Psudo-Code for the algorithm 4
+
+// I run it though java and it worked for every test cases in the GIT hub. I write down the arrays that I tested with.
+
+// Variables that the function will use.
+
+int[] Arr                   // It is our target.
+int n = Arr.length          // The size of array.
+int[] data = new int [n]    // Each elements, data[i], will contain the sum from Arr[0] to Arr[i].
+int start                   // It is starting point to get maximum subsequence.
+int end                     // It is ending point to get the maximum subsequence.
+int maxsum                  // It contains our maximum sum value.
+int temp                    // It is new starting point that can be make new subsequence that is greater than the former one.
+
+// This is the base case
+	
+	data[0] = Arr[0] ;
+	maxsum = Arr[0] ;
+	start = 0 ;
+	end = 0 ;
+	temp = 1 ;
+
+	int i ;
+		
+	for (i = 1 ; i < n ; i++) {
+		data[i] = data[i-1] + Arr[i] ;
+		if (start == 0) {
+			if (data[i] >= maxsum) {
+				maxsum = data[i] ;
+				end = i ;
+			}
+		}
+		else {
+			if (data[i]-data[start-1] >= maxsum) {
+				maxsum = data[i]-data[start-1] ;
+				end = i ;
+			}
+		}
+		if (data[i]-data[temp-1] < 0) {
+			temp = i+1 ;
+		}
+		if (maxsum < data[i]-data[temp-1]) {
+			maxsum = data[i]-data[temp-1] ;
+			start = temp ;
+			end = i ; 
+		}
+	}
+
+// The array I tested.
+
+//		int[] Arr = {31,-41,59,26,-51,58,97,-93,-23,84};
+//		int[] Arr = {1, 4, -9, 8, 1, 3, 3, 1, -1, -4, -6, 2, 8, 19, -10, -11} ;
+//		int[] Arr = {2, 9, 8, 6, 5, -11, 9, -11, 7, 5, -1, -8, -3, 7, -2} ;
+//		int[] Arr = {10, -11, -1, -9, 33, -45, 23, 24, -1, -7, -8, 19} ;
+//		int[] Arr = {31, -41, 59, 26, -53, 58, 97, -93, -23, 84} ; 
+//		int[] Arr = {3, 2, 1, 1, -8, 1, 1, 2, 3} ;
+//		int[] Arr = {12, 99, 99, -99, -27, 0, 0, 0, -3, 10} ;
+//		int[] Arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4} ;
